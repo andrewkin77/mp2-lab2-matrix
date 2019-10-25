@@ -26,37 +26,65 @@ TEST(TMatrix, can_create_copied_matrix)
 
 TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	int i, j;
+	for (i = 0; i < 5; i++)
+		for (j = i; j < 5; j++)
+		{
+			mt[i][j] = i + j;
+		}
+	TMatrix<int> cpy(mt);
+	EXPECT_EQ(mt, cpy);
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	int i, j;
+	for (i = 0; i < 5; i++)
+		for (j = i; j < 5; j++)
+		{
+			mt[i][j] = i + j;
+		}
+	TMatrix<int> cpy(mt);
+	for (i = 0; i < 5; i++)
+		for (j = i; j < 5; j++)
+		{
+			mt[i][j] = i - j;
+		}
+	EXPECT_NE(mt, cpy);
 }
 
 TEST(TMatrix, can_get_size)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	ASSERT_NO_THROW(mt.GetSize());
+	EXPECT_EQ(5, mt.GetSize());
 }
 
 TEST(TMatrix, can_set_and_get_element)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	ASSERT_NO_THROW(mt[1][4] = 3);
+	EXPECT_EQ(3, mt[1][4]);
 }
 
 TEST(TMatrix, throws_when_set_element_with_negative_index)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	ASSERT_ANY_THROW(mt[1][-4] = 3);
 }
 
 TEST(TMatrix, throws_when_set_element_with_too_large_index)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	ASSERT_ANY_THROW(mt[1][MAX_MATRIX_SIZE+1] = 3);
 }
 
 TEST(TMatrix, can_assign_matrix_to_itself)
 {
-  ADD_FAILURE();
+	TMatrix<int> mt(5);
+	ASSERT_NO_THROW(mt = mt);
 }
 
 TEST(TMatrix, can_assign_matrices_of_equal_size)
